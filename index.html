@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Blank Webpage</title>
+    <script>
+       function getLocation(){
+         
+       }
+  
+    </script>
+      <script src=
+      "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+          </script>
+       
+          <script>
+              /* Add "https://api.ipify.org?format=json" statement
+             this will communicate with the ipify servers in
+             order to retrieve the IP address $.getJSON will
+             load JSON-encoded data from the server using a
+             GET HTTP request */
+    
+              $.getJSON("https://api.ipify.org?format=json",
+                  function (data) {
+                      ip = data.ip;
+                      // Setting text of element P with id gfg
+                      $("#gfg").html(data.ip);
+
+                  })
+
+   
+
+          </script>
+         <script>
+            var ip = "";
+      fetch('https://api.ipify.org?format=json')
+                .then(response => response.json())
+                .then(data => {
+                    
+                    ip = data.ip;
+                    console.log("This is the ip");
+                    console.log(ip);
+                })
+                .catch(error => {
+                    console.log(error.message);
+                });
+
+    setTimeout(()=>{
+    fetch(' http://localhost:4100/record', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({Ip:ip})
+})
+    .then(response => response.json())
+    .catch(error => console.error(error.message));
+},3000);
+
+        
+         </script>
+</head>
+<body>
+        <h3>Public IP Address of user is:</h3>
+        <p id="gfg"></p>
+        <script>
+      
+        </script>
+</body>
+</html>
